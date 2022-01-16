@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\CandidateController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+/**
+ * Candidates
+ */
+Route::get('/candidates', [CandidateController::class, 'index']);
+Route::get('/candidates/{candidate}', [CandidateController::class, 'show']);
+Route::post('/candidates', [CandidateController::class, 'store']);
+Route::put('/candidates/{candidate}', [CandidateController::class, 'update']);
+Route::delete('/candidates/{candidate}', [CandidateController::class, 'destroy']);

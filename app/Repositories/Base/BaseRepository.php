@@ -28,9 +28,9 @@ class BaseRepository implements IBaseRepository
      * get all information
      *
      * @param $request
-     * @return model
+     * @return Collection
      */
-    public function all($request): Model
+    public function all($request): Collection
     {
         $query = $this->model;
 
@@ -63,10 +63,10 @@ class BaseRepository implements IBaseRepository
      * find the specified resource.
      *
      * @param array $conditionals
-     * @return Illuminate\Database\Eloquent\Model
+     * @return model
      *
      */
-    public function findByConditionals($conditionals)
+    public function findByConditionals($conditionals) : Model
     {
         $query = $this->model;
 
