@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Api\Contracts\IOcurrenceController;
+use App\Http\Controllers\Api\Contracts\IOccurrenceVoteController;
 use App\Http\Controllers\Controller;
-use App\Models\Ocurrence;
+use App\Models\OccurrenceVote;
 use Illuminate\Http\Request;
 
-class OcurrenceController extends Controller implements IOcurrenceController
+class OccurrenceVoteController extends Controller implements  IOccurrenceVoteController
 {
     //
     public function index(Request $request)
@@ -15,7 +15,7 @@ class OcurrenceController extends Controller implements IOcurrenceController
         // TODO: Implement index() method.
     }
 
-    public function store(Ocurrence $request)
+    public function store(OccurrenceVote $request)
     {
         // TODO: Implement store() method.
     }
@@ -25,12 +25,12 @@ class OcurrenceController extends Controller implements IOcurrenceController
         // TODO: Implement show() method.
     }
 
-    public function update(Request $request, Ocurrence $candidate)
+    public function update(Request $request, OccurrenceVote $candidate)
     {
         // TODO: Implement update() method.
     }
 
-    public function destroy(Ocurrence $candidate)
+    public function destroy(OccurrenceVote $candidate)
     {
         // TODO: Implement destroy() method.
     }

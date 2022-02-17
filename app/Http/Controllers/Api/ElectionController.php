@@ -9,10 +9,24 @@ use Illuminate\Http\Request;
 
 class ElectionController extends Controller implements  IElectionController
 {
-    //
+
+    private $candidateRepository;
+
+    /**
+     * __construct
+     *
+     * @return void
+     */
+    public function __construct(
+        ElectionR $candidateRepository
+    ) {
+        $this->candidateRepository = $candidateRepository;
+    }
+
     public function index(Request $request)
     {
-        // TODO: Implement index() method.
+        $candidate = $this->candidateRepository->all($request);
+        return response()->json($candidate, 200);
     }
 
     public function store(Election $request)

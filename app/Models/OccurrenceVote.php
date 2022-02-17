@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Ocurrence extends Model
+class OccurrenceVote extends Model
 {
     use HasFactory;
 
@@ -15,7 +15,7 @@ class Ocurrence extends Model
      *
      * @var string
      */
-    protected $table = 'occurrences';
+    protected $table = 'occurrence_votes';
 
     /**
      * The attributes that are mass assignable.
@@ -23,10 +23,8 @@ class Ocurrence extends Model
      * @var array
      */
     protected $fillable = [
-        'oc_description',
-        'pr_start_date',
-        'pr_end_date',
-        'status_id'
+        'occurrence_id',
+        'vote_id'
     ];
 
     /**
@@ -40,13 +38,4 @@ class Ocurrence extends Model
         'deleted_at'
     ];
 
-    /**
-     * status
-     *
-     * @return BelongsTo
-     */
-    public function status(): BelongsTo
-    {
-        return $this->belongsTo(Status::class, 'status_id');
-    }
 }
