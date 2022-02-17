@@ -1,0 +1,22 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My First API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/candidates": {
+            "get": {
+                "operationId": "e529647eb52fe7d5963c24b1e26d8e8b",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of projects."
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}

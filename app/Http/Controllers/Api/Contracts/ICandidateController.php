@@ -9,7 +9,12 @@ use Illuminate\Http\Request;
 
 interface ICandidateController
 {
-
+    /**
+     * @OA\Get(
+     *     path="/api/candidates",
+     *     @OA\Response(response="200", description="Display a listing of projects.")
+     * )
+     */
     public function index(Request $request);
 
     public function store(CandidateRequest $request);
