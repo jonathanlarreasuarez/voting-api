@@ -5,33 +5,55 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Api\Contracts\IStatusController;
 use App\Http\Controllers\Controller;
 use App\Models\Status;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class StatusController extends Controller implements IStatusController
 {
-    //
-    public function index(Request $request)
-    {
-        // TODO: Implement index() method.
+    private $statusRepository;
+
+    /**
+     * __construct
+     *
+     * @return void
+     */
+    public function __construct(
+        Status $statusRepository
+    ){
+        $this->statusRepository = $statusRepository;
     }
 
-    public function store(Status $request)
+    public function index(Request $request) : JsonResponse
     {
-        // TODO: Implement store() method.
+        $status = $this->statusRepository->all($request);
+        return response()->json($status, 200);
     }
 
-    public function show($id)
+    public function store(Status $request) : JsonResponse
     {
-        // TODO: Implement show() method.
+        $status = new Status($request->all());
+        $status = $this->statusRepository->save($status);
+        return response()->json($status, 201);
     }
 
-    public function update(Request $request, Status $candidate)
+    public function show($id) : JsonResponse
     {
-        // TODO: Implement update() method.
+        $status = $this->statusRepository->find($id);
+        return response()->json($status, 200);
     }
 
-    public function destroy(Status $candidate)
+    public function update(Request $request, Status $status) : JsonResponse
     {
-        // TODO: Implement destroy() method.
+        $status->fill($request->all());
+        if ($status->isClean()){
+            return response()->json(__('messages.not-change'), 301);
+        }
+        return response()->json($this->statusRepository->save($status), 200);
+    }
+
+    public function destroy(Status $status) : JsonResponse
+    {
+        $this->statusRepository->destroy($status);
+        return response()->json(null, 204);
     }
 }

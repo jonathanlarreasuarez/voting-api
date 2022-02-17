@@ -15,7 +15,7 @@ interface IVoterController
 
     public function show($id);
 
-    public function update(Request $request, Voter $candidate);
+    public function update(Request $request, Voter $voter);
 
-    public function destroy(Voter $candidate);
+    public function destroy(Voter $voter);
 }

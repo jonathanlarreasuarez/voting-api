@@ -15,7 +15,7 @@ interface IOccurrenceVoteController
 
     public function show($id);
 
-    public function update(Request $request, OccurrenceVote $candidate);
+    public function update(Request $request, OccurrenceVote $occurrenceVote);
 
-    public function destroy(OccurrenceVote $candidate);
+    public function destroy(OccurrenceVote $occurrenceVote);
 }

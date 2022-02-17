@@ -15,7 +15,7 @@ interface IStatusController
 
     public function show($id);
 
-    public function update(Request $request, Status $candidate);
+    public function update(Request $request, Status $status);
 
-    public function destroy(Status $candidate);
+    public function destroy(Status $status);
 }

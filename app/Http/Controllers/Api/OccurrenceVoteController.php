@@ -5,33 +5,56 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Api\Contracts\IOccurrenceVoteController;
 use App\Http\Controllers\Controller;
 use App\Models\OccurrenceVote;
+use App\Repositories\OccurrenceVoteRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class OccurrenceVoteController extends Controller implements  IOccurrenceVoteController
 {
-    //
-    public function index(Request $request)
-    {
-        // TODO: Implement index() method.
+    private $occurrenceVoteRepository;
+
+    /**
+     * __construct
+     *
+     * @return void
+     */
+    public function __construct(
+        OccurrenceVoteRepository $occurrenceVoteRepository
+    ){
+        $this->occurrenceVoteRepository = $occurrenceVoteRepository;
     }
 
-    public function store(OccurrenceVote $request)
+    public function index(Request $request) : JsonResponse
     {
-        // TODO: Implement store() method.
+        $occurrenceVote = $this->occurrenceVoteRepository->all($request);
+        return response()->json($occurrenceVote, 200);
     }
 
-    public function show($id)
+    public function store(OccurrenceVote $request) : JsonResponse
     {
-        // TODO: Implement show() method.
+        $occurrenceVote = new OccurrenceVote($request->all());
+        $occurrenceVote = $this->occurrenceVoteRepository->save($occurrenceVote);
+        return response()->json($occurrenceVote, 201);
     }
 
-    public function update(Request $request, OccurrenceVote $candidate)
+    public function show($id) : JsonResponse
     {
-        // TODO: Implement update() method.
+        $occurrenceVote = $this->occurrenceVoteRepository->find($id);
+        return response()->json($occurrenceVote, 200);
     }
 
-    public function destroy(OccurrenceVote $candidate)
+    public function update(Request $request, OccurrenceVote $occurrenceVote) : JsonResponse
     {
-        // TODO: Implement destroy() method.
+        $occurrenceVote->fill($request->all());
+        if ($occurrenceVote->isClean()){
+            return response()->json(__('messages.not-change'), 301);
+        }
+        return response()->json($this->occurrenceVoteRepository->save($occurrenceVote), 200);
+    }
+
+    public function destroy(OccurrenceVote $occurrenceVote) : JsonResponse
+    {
+        $this->occurrenceVoteRepository->destroy($occurrenceVote);
+        return response()->json(null, 204);
     }
 }

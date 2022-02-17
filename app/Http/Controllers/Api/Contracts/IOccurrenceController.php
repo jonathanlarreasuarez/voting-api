@@ -15,7 +15,7 @@ interface IOccurrenceController
 
     public function show($id);
 
-    public function update(Request $request, Occurrence $candidate);
+    public function update(Request $request, Occurrence $occurrence);
 
-    public function destroy(Occurrence $candidate);
+    public function destroy(Occurrence $occurrence);
 }

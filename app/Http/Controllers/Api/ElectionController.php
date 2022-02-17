@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Api\Contracts\IElectionController;
 use App\Http\Controllers\Controller;
 use App\Models\Election;
+use App\Repositories\ElectionRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ElectionController extends Controller implements  IElectionController
 {
 
-    private $candidateRepository;
+    private $electionRepository;
 
     /**
      * __construct
@@ -18,34 +20,42 @@ class ElectionController extends Controller implements  IElectionController
      * @return void
      */
     public function __construct(
-        ElectionR $candidateRepository
+        ElectionRepository $electionRepository
     ) {
-        $this->candidateRepository = $candidateRepository;
+        $this->electionRepository = $electionRepository;
     }
 
-    public function index(Request $request)
+    public function index(Request $request) : JsonResponse
     {
-        $candidate = $this->candidateRepository->all($request);
+        $candidate = $this->electionRepository->all($request);
         return response()->json($candidate, 200);
     }
 
-    public function store(Election $request)
+    public function store(Election $request) : JsonResponse
     {
-        // TODO: Implement store() method.
+        $election = new Election($request->all());
+        $election = $this->electionRepository->save($election);
+        return response()->json($election, 201);
     }
 
-    public function show($id)
+    public function show($id) : JsonResponse
     {
-        // TODO: Implement show() method.
+        $election = $this->electionRepository->find($id);
+        return response()->json($election, 200);
     }
 
-    public function update(Request $request, Election $candidate)
+    public function update(Request $request, Election $election) : JsonResponse
     {
-        // TODO: Implement update() method.
+        $election->fill($request->all());
+        if ($election->isClean()){
+            return response()->json(__('messages.not-change'), 301);
+        }
+        return response()->json($this->electionRepository->save($election), 200);
     }
 
-    public function destroy(Election $candidate)
+    public function destroy(Election $election) : JsonResponse
     {
-        // TODO: Implement destroy() method.
+        $this->electionRepository->destroy($election);
+        return response()->json(null, 204);
     }
 }

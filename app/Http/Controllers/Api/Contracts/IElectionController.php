@@ -15,7 +15,7 @@ interface IElectionController
 
     public function show($id);
 
-    public function update(Request $request, Election $candidate);
+    public function update(Request $request, Election $election);
 
-    public function destroy(Election $candidate);
+    public function destroy(Election $election);
 }
